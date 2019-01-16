@@ -1,0 +1,50 @@
+using System;
+
+namespace Fibonacci_sequens_ce
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double Fsum = 1;
+            double F1 = 1;
+            double F2 = 1;
+            int num = 0;
+            Console.WriteLine("Fibonacci squence\n");
+            RetryLabel:
+            Console.WriteLine("Now you can tell me which number of sequence youa re intersted in\n");
+
+            try
+            {
+                string n;
+                n = Console.ReadLine();
+                num = Convert.ToInt32(n);
+            }
+            catch(System.FormatException)
+            {
+                Console.WriteLine("Give me number");
+                goto RetryLabel;
+            }
+            if (num == 0)
+            {
+                Fsum = 0;
+                Console.WriteLine("0 number of sequence is 0");
+            }
+            else if (num == 1 || num == 2)
+            {
+                Fsum = 1;
+                Console.WriteLine("{0} number of sequence is 1",num);
+            } else
+                {
+                for (int i = 3; i <= num;i++)
+                { 
+                    Fsum = F1 + F2;
+                    F1 = F2;
+                    F2 = Fsum;
+                }
+                Console.WriteLine("{0} Fibonacci sequence number is {1}", num, Fsum);
+            }
+            Console.ReadKey();
+        }
+    }
+}
