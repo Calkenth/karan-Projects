@@ -1,0 +1,33 @@
+using System;
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+        public const double PI = Math.PI;
+        static void Main(string[] args)
+        {
+            double num;
+            RetryLabel:
+            Console.WriteLine("Pi number, let's see it\n");
+            Console.WriteLine("Please tell me how many digits of Pi number you want to see\n");
+            int HowMany;
+            try
+            {                
+                HowMany = Convert.ToInt32(Console.ReadLine());
+                if (HowMany < 0 || HowMany > 14)//number of digits MUST be between 0 and 14
+                {
+                    HowMany = 14;
+                }
+                num = Math.Round(PI, HowMany);
+                Console.WriteLine("PI = " + num);
+                Console.WriteLine("");
+            }
+            catch (System.FormatException) //if there is wrong format given
+            {
+                Console.WriteLine("You should write a number\n");
+                goto RetryLabel; //going back to give number again
+            }
+            Console.ReadKey();
+        }
+    }
