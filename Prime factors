@@ -1,0 +1,42 @@
+using System;
+
+namespace Prime_factors
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int num = 0;
+            int numx;
+            string effect = "= ";
+            string text;
+            RetryLabel:
+            Console.WriteLine("Please give me your number");
+            try
+            {
+                num = Convert.ToInt32(Console.ReadLine());
+                numx = num;
+                for (int i = 2; i <= num; i++)//make no sense to divide by 0 or 1
+                {
+                    if (num % i == 0)
+                    {
+                        text = Convert.ToString(i);
+                        effect += "" + text;
+                        effect += " *";
+                        num = num / i;
+                        i = 1;//have to count primes from beggining
+                    }
+                }
+                effect = effect.Remove(effect.Length - 1, 1);
+                Console.WriteLine("Those are Prime factors of {0}", numx);
+                Console.WriteLine(effect);
+            }
+            catch(System.FormatException) //wrong format of input(not integer)
+            {
+                Console.WriteLine("Please give me a INTEGER NUMBER");
+                goto RetryLabel;
+            }
+            Console.ReadKey();
+        }
+    }
+}
