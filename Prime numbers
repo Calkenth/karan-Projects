@@ -1,0 +1,49 @@
+using System;
+
+namespace Prime_numbers
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int num;
+            string yn;
+            again:
+            string ans = "";
+            Console.WriteLine("Tell me...\nTell me a range of numbers and i will give you all primes\n");
+            try
+            {
+                num = Convert.ToInt32(Console.ReadLine());
+                for (int i = 3; i <= num; i++)
+                {
+                    int c = 2;
+                    while (c < i)
+                    {
+                        double z = i % c;
+                        if (z == 0)
+                        {
+                            break;
+                        }
+                        else if (c == i - 1)
+                        {
+                            ans += " " + i;
+                            break;
+                        }
+                        else
+                        {
+                            c += 1;
+                        }
+                    }
+                }
+                Console.WriteLine("Those are PRIMES:" + ans);
+                last:
+                Console.WriteLine("Do you want to change a range?(Y/N)");
+                yn = Console.ReadLine();
+                if (yn == "Y") { goto again; }
+                else if (yn == "N") { Console.ReadKey(); }
+                else { Console.WriteLine("Use Y as yes or N as NO"); goto last; }
+            }
+            catch (System.FormatException) { Console.WriteLine("Give me a NUMBER"); goto again; }
+        }
+    }
+}
