@@ -1,0 +1,86 @@
+using System;
+
+namespace Mortage_Calculator
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int InYearTime;
+            int years;
+            int RealTime;
+            double Installment, Loan;
+            Bad1:
+            try
+            {
+                Console.WriteLine("Hello, how much you would like to borrow?");
+                Loan = Convert.ToDouble(Console.ReadLine());
+            }
+            catch (System.FormatException) { Console.WriteLine("Use numerical answers."); goto Bad1; }
+            Bad2:
+            try { 
+                Console.WriteLine("For how long you would like to borrow it? In months of course.");
+                InYearTime = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (System.FormatException) { Console.WriteLine("Use numerical answers."); goto Bad2; }
+            years = InYearTime / 12;
+            BorrowPercent borrow = new BorrowPercent();
+            double HowMuch = borrow.RealCost(Loan);
+            Console.WriteLine("You want to borrow {0:C}. You will need to pay me {1:C}.\n", Loan, HowMuch);            
+            WrongAns:
+            Console.WriteLine("I almost forgot, You want to pay your dept\nDaily\nWeekly\nMonthly?");
+            string answer = Console.ReadLine();
+            PayInterval interval = new PayInterval();
+            int Time = interval.PayTime(answer);
+            if(Time == 0) { goto WrongAns; }
+            RealTime = Time * years;
+            Installment = HowMuch / RealTime;
+            Installment = Math.Round(Installment, 2);
+            Console.WriteLine("Let's gather all info:\nYou will borrow {0:C}.\nAfter {1} months you will give me back all {2:C}." +
+                "\nYou will pay me {3}.\nIt will be {4:C} each instalment.", Loan, InYearTime, HowMuch, answer,Installment);
+
+            Console.ReadKey();
+        }
+        public class PayInterval
+        {
+            int time;
+            public int PayTime(string ChoosenTime)
+            {
+                if(ChoosenTime == "Monthly")
+                {
+                    int months = 12;
+                    time = months;
+                }
+                else if(ChoosenTime == "Weekly")
+                {
+                    int weeks = 52;
+                    time = weeks;
+                }
+                else if (ChoosenTime == "Daily")
+                {
+                    int days = 365;
+                    time = days;
+                }
+                else
+                {
+                    Console.WriteLine("You wrote wrong answer, please choose Daily or Weekly or Monthly\n");
+                    time = 0;
+                }
+                return time;
+            }
+        }
+        public class BorrowPercent
+        {
+            double HowMuch;
+            double Prc;
+            public double RealCost(double Loan)
+            {
+                if(Loan < 10000) { Prc = 1.01; }
+                else if(Loan >= 10000 && Loan < 50000) { Prc = 1.02; }
+                else if(Loan >= 50000) { Prc = 1.03; }
+                HowMuch = Loan * Prc;
+                return HowMuch;
+            }
+        }
+    }
+}
