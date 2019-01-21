@@ -1,0 +1,40 @@
+using System;
+
+namespace Change_Return
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double price, input, rest;
+            double hundreds, fiftys, twienties, tens, fives, ones;
+            RetryLabel:
+            try
+            {
+                Console.WriteLine("Enter price of products.");
+                price = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Enter client input value.");
+                input = Convert.ToDouble(Console.ReadLine());
+                rest = input - price;
+                hundreds = Math.Floor(rest / 100);
+                rest = rest - hundreds * 100;
+                fiftys = Math.Floor(rest / 50);
+                rest = rest - fiftys * 50;
+                twienties = Math.Floor(rest / 20);
+                rest = rest - twienties * 20;
+                tens = Math.Floor(rest / 10);
+                rest = rest - tens * 10;
+                fives = Math.Floor(rest / 5);
+                rest = rest - fives * 5;
+                ones = Math.Floor(rest);
+                rest = rest - ones;
+                rest = Math.Round(rest, 2);
+                Console.WriteLine("You should give customer:");
+                Console.WriteLine(hundreds + " 100 zł\n" + fiftys + " 50 zł\n" + twienties + " 20 zł\n" + tens + " 10 zł\n" + fives + " 5 zł\n" + ones + " 1 zł\n" + rest + " gr");
+                Console.ReadKey();
+            }
+            catch (System.FormatException) { Console.WriteLine("You didnt put number value.Try again."); goto RetryLabel; }
+        }
+
+    }
+}
