@@ -1,0 +1,64 @@
+using System;
+
+namespace Binary_Decimal
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int num, UserNum;
+            double DecNum = 0;
+            string ReversedNum;
+            string ChangedNum = "";
+            string DecimalNum = "";
+
+            RetryLabel:
+
+            Console.WriteLine("What kind of number you will give? \nB - binary\nD - decimal");
+            string ans = Console.ReadLine();
+            if (ans == "D")
+            {
+                Console.WriteLine("Give me your number");
+                UserNum = Convert.ToInt32(Console.ReadLine());
+                do
+                {
+                    num = UserNum % 2;              //this is how we
+                    UserNum = UserNum / 2;          //change
+                    ChangedNum += "" + num;         //decimal to binary
+                }
+                while (UserNum > 0);
+                Console.WriteLine("\nYour number as binary number: " + ChangedNum);
+
+                var Array = ChangedNum.ToCharArray(); //changing string to array
+                System.Array.Reverse(Array); //reversing array
+                ReversedNum = new string(Array); // creating new string from reversed array
+
+                Console.WriteLine("oh, sorry, had to revers it\n");
+                Console.WriteLine(ReversedNum);
+            }
+            else if (ans == "B")
+            {
+                Console.WriteLine("Give me your number");
+                string StrUserNum = Console.ReadLine();
+                var Array = StrUserNum.ToCharArray(); //changing string to array
+                System.Array.Reverse(Array); //reversing array
+                int p = 0; //creating power factor
+                foreach(char i in Array)
+                {
+                    int Char = Convert.ToInt16(i.ToString());//char -> string -> int
+                    DecNum += Math.Pow(2, p) * Char;//changing binary to decimal
+                    p++;//incrementing power factor
+                    Console.WriteLine(Char);
+                }
+                DecimalNum = "" + DecNum;
+                Console.WriteLine("Binary you gave as Decimal: " + DecimalNum);
+            }
+            else
+            {
+                Console.WriteLine("You choosed something that even dont exist. Choose again.\n");
+                goto RetryLabel;
+            }
+            Console.ReadKey();
+        }
+    }
+}
