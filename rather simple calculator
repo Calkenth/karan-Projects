@@ -165,8 +165,9 @@ namespace Calculator
             }
             else
             {
-
-                textBox1.Text = "-" + textBox1.Text;
+                double num = Convert.ToDouble(textBox1.Text);
+                num = num * -(1);
+                textBox1.Text = Convert.ToString(num);
             }
 
         }
@@ -174,6 +175,10 @@ namespace Calculator
         private void ndel_Click(object sender, EventArgs e)
         {
             textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
+            if(textBox1.Text.Length == 0)
+            {
+                textBox1.Text = "0";
+            }
         }
 
         private void nrevers_Click(object sender, EventArgs e)
@@ -249,6 +254,7 @@ namespace Calculator
 
     }
 }
+
 
 FORM1.DESIGNER.CS
 
